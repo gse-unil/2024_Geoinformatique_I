@@ -1,129 +1,160 @@
 # Introduction à PyQGIS
 
-QGIS est un logiciel écrit en C++, mais il est construit en sorte à ce que l'utilisateur peut interagir avec le logiciel en Python. Ceci permet:
+QGIS, logiciel SIG open source écrit en C++, permet d’interagir avec Python. Cela offre plusieurs avantages :
 
-- d'exécuter des tâches répétitives à l'aide d'un script Python
+- **Automatisation** : simplifiez des tâches répétitives via des scripts Python.
+- **Transparence** : documentez chaque manipulation pour plus de traçabilité.
+- **Extensibilité** : réalisez des analyses personnalisées grâce à des modules Python spécialisés.
+- **Développement de plugins** : créez des plugins pour enrichir les fonctionnalités disponibles avec la possibilité de les partager avec la communauté QGIS.
 
-- de disposer d'un script Python qui donne une transparence totale sur les manipulations effectuées dans QGIS
+Vous pouvez exécuter du code Python dans QGIS de trois manières :
 
-- d'étendre les possibilités de QGIS, p.ex. en effectuant certaines tâches à l'aide d'un module Python spécialisé
+1. Avec la **console Python** intégrée.
+2. En exécutant un **script Python** dans QGIS ou en ligne de commande.
+3. En créant un **plugin** Python pour QGIS.
 
-- d'écrire des plugins QGIS et ainsi rendre accessible des nouvelles fonctionalités à l'ensemble de la communauté QGIS
+## 1. La console Python
 
-Il y a trois façons pour faire tourner du code Python dans QGIS:
-
-1. À l'aide de la console Python intégrée dans QGIS
-2. En exécutant un script Python depuis QGIS, ou depuis une console ligne de commande
-3. Sous forme d'un plugin
-
-
-## La console Python
-
-La console Python est intégrée dans QGIS. Elle peut être affichée par le menu Extension > Console Python:
+La console Python est intégrée dans QGIS. Elle peut être ouverte via le menu **Extension > Console Python** :
 
 ![](assets/menu-console-python.png)
 
-ou par le bouton correspondant avec l'icône Python dans barre d'outils *Extensions*.
+ou en cliquant sur le bouton avec l'icône Python dans la barre d'outils *Extensions*.
 
-La console s'affiche généralement en bas à droite, mais peut être déplacée n'importe où:
+Par défaut, la console s'affiche en bas à droite de l'écran, mais elle peut être déplacée où vous le souhaitez :
 
 ![](assets/qgis-console-python.png)
 
-La console fonctionne selon le principe **REPL**: Read, Execute, Print Loop. Ceci veut dire que chaque commande écrite dans la console est lue et exécutée directement. Le résultat est ensuite affichée dans la console. Il s'agit d'une boucle (loop), car ensuite on peut entrer la commande suivante.
+La console fonctionne en mode **REPL** (Read, Execute, Print, Loop) : chaque commande entrée est lue et exécutée directement, et son résultat est affiché dans la console. Vous pouvez ensuite entrer une autre commande, formant ainsi une boucle continue.
 
-La console permet d'exécuter en principe n'importe quel code Python, même sans lien avec QGIS. On peut définir des variables, ou faire des calculs comme d'habitude:
+La console permet d'exécuter n'importe quel code Python, même s'il n'est pas directement lié à QGIS. Par exemple, vous pouvez définir des variables ou effectuer des calculs classiques :
 
 ![](assets/qgis-repl-python.png)
 
-Si un module Python doit être installée, nous pouvons le faire avec l'outil de ligne de commande `pip`. La console QGIS supporte les outils de ligne de commande, il suffit de commencer une ligne de code avec `!`. Donc p.ex. pour installer le module `pooch` pour télécharger des données, on pourrait l'installer avec
+Si un module Python doit être installé, cela peut se faire avec l'outil de ligne de commande `pip`. La console QGIS supporte les commandes système en utilisant le préfixe `!`. Par exemple, pour installer le module `pooch` (utile pour télécharger des données), tapez :
 
 ```python
-!pip insall pooch
+!pip install pooch
 ```
 
+### Bug courant dans la console Python de QGIS
 
-## Ajouter une couche vectorielle
+Il peut arriver que la commande `!pip install pooch` ne fonctionne pas dans la console Python de QGIS, car `pip` n'est parfois pas reconnu. Pour contourner ce problème, une solution consiste à créer un environnement Python séparé avec Anaconda/Miniconda et à le configurer pour QGIS. Voici les étapes :
 
-Le but de la console Python n'est évidemment pas de faire quelques calculs simples avec Python. Le but est d'interagir avec QGIS. Toutes les actions qui sont possibles dans l'interface graphique de QGIS sont également accessibles avec Python.
+1. **Installer Miniconda ou Anaconda**  
+   Téléchargez et installez Miniconda (ou Anaconda) en suivant les instructions officielles : [Instructions pour l'installation de Miniconda](https://docs.anaconda.com/miniconda/miniconda-install/).
 
-L'interface QGIS est accessible dans Python par la variable `iface` qui est définie automatiquement au lancement de Python. Une méthode accessible par cette variable `iface` est `addVectorLayer`. Il faut indiquer le chemin d'accès de la couche vectorielle sur le disque dur, le nom de la couche dans QGIS, et avec quel méthode la couche doit être chargée (la méthode correspond en gros à la barre latérale de gauche dans le gestionnaire des sources de données).
+2. **Créer un environnement Python dédié pour QGIS**  
+   Ouvrez une console `Anaconda Prompt` et créez un environnement pour QGIS en incluant les bibliothèques SIG nécessaires, comme `pooch`, `geopandas`, `shapely`, `fiona` et `rasterio` :
+   ```bash
+   conda create -n qgis_env python=3.9 pooch geopandas shapely fiona rasterio
+   ```
 
-Nous pouvons charger une couche vectorielle de la façon suivante (l'exemple utilise les [GIS Starter Data](https://www.geoinformatique.ch/data/gis-starter-data) mais fonctionne avec n'importe quelles données):
+3. **Pointer QGIS vers cet environnement**  
+   Une fois l'environnement configuré, vous devez le lier à QGIS :
+   - Allez dans **Préférences > Options > Système** dans QGIS.
+   - Dans la section **Environnement**, cliquez sur "Utiliser des variables personnalisées".
+   - Cliquer sur le bouton PLUS vert pour ajouter une variable nommée `PYTHONPATH` (Sélectionner le mode "Écraser" dans la colonne "Appliquer" puis taper la variable dans la colonne "Variable").  
+   - Définissez la colonne "Valeur" en utilisant le chemin du dossier `site-packages` de l'environnement que vous avez créé. 
+   
+   Pour trouver ce chemin :
+     - Ouvrez une console Anaconda.
+     - Activez l'environnement avec la commande :
+       ```bash
+       conda activate qgis_env
+       ```
+     - Tapez la commande suivante pour afficher le chemin :
+       ```bash
+       python -c "import site; print(site.getsitepackages()[0])"
+       ```
+     - Copiez le chemin affiché et collez-le comme valeur de la variable `PYTHONPATH` dans QGIS.
+
+4. **Redémarrer QGIS**  
+   Redémarrez QGIS pour appliquer les changements. Vous devriez maintenant pouvoir utiliser `pip` et installer des packages directement dans cet environnement via `conda` ou dans la console QGIS.
+
+### Ajouter une couche vectorielle
+
+L'objectif principal de la console Python est d'interagir avec QGIS. Toutes les actions disponibles dans l'interface graphique de QGIS peuvent également être effectuées via Python.
+
+L'interface QGIS est accessible en Python grâce à la variable `iface`, qui est automatiquement définie au lancement de QGIS. Une méthode clé de cette interface est `addVectorLayer`, qui permet de charger une couche vectorielle. Il suffit de spécifier le chemin d'accès de la couche, le nom de la couche, et la méthode de chargement (la méthode correspond aux sources de données dans le gestionnaire).
+
+Avant de charger une couche vectorielle, assurez-vous d'avoir téléchargé les données sur votre ordinateur. Cet exemple utilise les [GIS Starter Data](https://www.geoinformatique.ch/data/gis-starter-data), que vous devrez d'abord télécharger et placer dans un dossier accessible.
+
+Pour charger une couche vectorielle, utilisez la commande `addVectorLayer`, en remplaçant le chemin d'accès (path) par l'emplacement où vous avez enregistré les données. Par exemple :
 
 ```python
 lyr_osm_bati = iface.addVectorLayer(
-    '/home/tux/sig/data/gis-starter-data/osm/greater-bern-extract/gis_osm_buildings_a.shp',
+    '/votre/chemin/vers/gis-starter-data/osm/greater-bern-extract/gis_osm_buildings_a.shp',
     'batiments',
     'ogr'
 )
 ```
 
-Nous pouvons obtenir les attributs et en afficher le nom:
+Dans cet exemple, remplacez `/votre/chemin/vers/gis-starter-data/...` par le chemin exact de votre fichier `.shp`. Ce code fonctionnera également avec d'autres jeux de données SIG, à condition d'indiquer le bon chemin.
+
+Pour afficher les noms des attributs d'une couche, utilisez :
 
 ```python
 for attr in lyr_osm_bati.fields():
     print(attr.name())
 ```
 
-Et pour ouvrir la table d'attributs:
+Pour ouvrir la table d'attributs dans QGIS :
 
 ```python
 iface.showAttributeTable(lyr_osm_bati)
 ```
 
-La couche en question possède un attribut `type` qui correspond au type de bâtiment selon les données OSM. Nous pouvons faire un décompte par type de bâtiment. Pour cela, nous pouvons faire obtenir toutes les entités (features) et extraire la valeur pour l'attribut `type`. Pour le comptage, nous utilisons un dictionnaire un peu spécial où la valeur est zéro pour chaque nouvelle clé:
+Dans cet exemple, la couche a un attribut `type` indiquant le type de bâtiment (selon les données OSM). Nous allons compter les bâtiments par type en extrayant la valeur de cet attribut pour chaque entité (`feature`). Pour cela, nous utilisons un dictionnaire spécial (`defaultdict`) qui initialise chaque nouvelle clé à 0 :
 
 ```python
 from collections import defaultdict
-
-# Créer le dictionnaire qui permet de stocker le nombre de bâtiments
-# par type. Une nouvelle valeur dans le dictionnaire sera toujours 0.
+```
+``` python
+# Initialiser le dictionnaire pour stocker le nombre de bâtiments par type
 type_cnts = defaultdict(int)
-
-# Obtenir les entités de la couche chargée plus haut.
+```
+```python
+# Récupérer les entités de la couche
 batiments = lyr_osm_bati.getFeatures()
-
-# Faire une boucle à travers tous les bâtiments
+```
+```python
+# Boucler sur chaque bâtiment pour compter les types
 for bati in batiments:
-    type_bati = bati['type']
-    # Gérer les bâtiments sans type défini
-    if not type_bati:
-        type_bati = 'non défini'
-    # Compter 1 pour le bâtiment
+    type_bati = bati['type'] or 'non défini'  # Définit 'non défini' si le type est vide
     type_cnts[type_bati] += 1
-
-# Afficher le nombre d'écoles et églises
-print(f"Écoles: {type_cnts['school']}")
-print(f"Églises: {type_cnts['church']}")
+```
+```python
+# Afficher les nombres d'écoles et d'églises
+print(f"Écoles : {type_cnts['school']}")
+print(f"Églises : {type_cnts['church']}")
 ```
 
-## Scripts Python
+## 2. Scripts Python
 
-Dans la console Python, il faut saisir chaque instruction à la fois. Ça va bien pour juste essayer une commande. Par contre, pour faire tourner plusieurs lignes de code, il faut une autre méthode. Pour cela, il y a des fichiers de script.
+Dans la console Python, chaque instruction doit être saisie une par une, ce qui est pratique pour tester rapidement des commandes. Cependant, pour exécuter plusieurs lignes de code, il est préférable d'utiliser des fichiers de script.
 
-La console Python contient un éditeur de scripts Python. Il suffit de cliquer sur le bouton correspondant et l'éditeur s'affiche à droite:
+La console Python de QGIS intègre un éditeur de scripts. Cliquez sur le bouton correspondant pour ouvrir l'éditeur sur la droite :
 
 ![](assets/console-python-script.png)
 
-Un script peut être enregistré sur le disque pour garder une trace et pour l'exécuter plus tard. Un script Python a toujours une extension `.py`. Pour faire tourner le script actif dans l'éditeur Python, il suffit de cliquer sur le bouton avec le triangle vert.
+Un script peut être enregistré sur le disque (sous l'extension `.py`) pour conserver une trace du code et le réutiliser plus tard. Pour exécuter le script actif dans l'éditeur, cliquez sur le bouton avec le triangle vert.
 
+## 3. Outils de géotraitement
 
-## Outils de géotraitement
-
-QGIS possède un grand nombre d'outils de géotraitements. Elle peut être affichée avec le menu Traitement > Boîte à outils, ou avec le bouton dans la barre d'outils correspondante.
+QGIS dispose de nombreux outils de géotraitement. La boîte à outils est accessible via **Traitement > Boîte à outils** ou depuis la barre d'outils :
 
 ![](assets/geoprocessing-toolbox.png)
 
-Tous les outils fonctionnent selon le même principe: un double-clic ouvre le dialogue d'outil permettant de paramétriser le traitement. Voici l'exemple pour projeter la couche des bâtiments OSM en coordonnées suisse (en créant une couche temporaire):
+Tous les outils fonctionnent de manière similaire : un double-clic ouvre une boîte de dialogue où vous pouvez paramétrer le traitement. Par exemple, voici comment projeter une couche de bâtiments OSM en coordonnées suisses (en créant une couche temporaire) :
 
 ![](assets/traitement-project.png)
 
-Pour la création de scripts, le bouton «Avancé» en bas de la fenêtre est intéressant. Il donne accès, entre autres, à la commande Python correspondant au traitement configuré en haut. Ainsi, il est possible d'effectuer un géotraitement, et une fois qu'il a tourné de manière satisfaisante, on peut copier la commande pour l'écriture du script Python.
+Pour les scripts, le bouton « Avancé » en bas de la fenêtre est utile. Il fournit, entre autres, la commande Python correspondant au traitement paramétré. Une fois le géotraitement effectué avec succès, vous pouvez copier cette commande pour l'intégrer dans un script Python.
 
 ![](assets/processing-copy-py-command.png)
 
-En l'occurrence, la commande correspondante est assez longue. Il est généralement conseillé de formater un peu le code pour augmenter la lisibilité et ainsi la compréhension. Un bouton pour le faire est proposé en dessus de l'éditeur de code.
-
+La commande générée peut être longue. Il est souvent conseillé de formater le code pour en faciliter la lecture et la compréhension. Un bouton dans l'éditeur de code permet d'ajuster automatiquement le format.
 
 ## Pour aller plus loin...
 
