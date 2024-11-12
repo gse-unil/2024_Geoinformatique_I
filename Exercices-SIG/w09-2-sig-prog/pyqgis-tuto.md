@@ -51,26 +51,33 @@ Il peut arriver que la commande `!pip install pooch` ne fonctionne pas dans la c
    ```
 
 3. **Pointer QGIS vers cet environnement**  
-   Une fois l'environnement configuré, vous devez le lier à QGIS :
-   - Allez dans **Préférences > Options > Système** dans QGIS.
-   - Dans la section **Environnement**, cliquez sur "Utiliser des variables personnalisées".
-   - Cliquer sur le bouton PLUS vert pour ajouter une variable nommée `PYTHONPATH` (Sélectionner le mode "Écraser" dans la colonne "Appliquer" puis taper la variable dans la colonne "Variable").  
-   - Définissez la colonne "Valeur" en utilisant le chemin du dossier `site-packages` de l'environnement que vous avez créé. 
+   Une fois l'environnement configuré, liez-le à QGIS en suivant ces quatre étapes :
+   - 3.1. Allez dans **Préférences > Options > Système** dans QGIS.
+   - 3.2. Dans la section **Environnement**, cochez "Utiliser des variables personnalisées".
+   - 3.3. Cliquez sur le bouton vert "+" pour ajouter une nouvelle variable nommée `PYTHONPATH`.
+     - Colonne **Appliquer** : sélectionnez "Écraser".
+     - Colonne **Valeur** : entrez le chemin vers le dossier `site-packages` de l'environnement : `chemin/lib/python3.9/site-packages`, où `chemin` est le chemin copié de l'étape suivante.
    
    Pour trouver ce chemin :
-     - Ouvrez une console Anaconda.
-     - Activez l'environnement avec la commande :
-       ```bash
-       conda activate qgis_env
-       ```
-     - Tapez la commande suivante pour afficher le chemin :
-       ```bash
-       python -c "import site; print(site.getsitepackages()[0])"
-       ```
-     - Copiez le chemin affiché et collez-le comme valeur de la variable `PYTHONPATH` dans QGIS.
+   - Ouvrez une console Anaconda.
+   - Activez l'environnement avec :
+     ```bash
+     conda activate qgis_env
+     ```
+   - Utilisez cette commande pour obtenir le chemin du dossier `site-packages` :
+     ```bash
+     python -c "import site; print(site.getsitepackages()[0])"
+     ```
+
+   N'oubliez pas la quatrième étape :
+   
+   - 3.4. **Ajouter le chemin au PATH** : Ajoutez une autre variable, nommée `PATH`, en sélectionnant "Écraser" dans **Mode Appliquer** et définissez la **Valeur** à `chemin/bin`, où `chemin` est le même que précédemment.
 
 4. **Redémarrer QGIS**  
-   Redémarrez QGIS pour appliquer les changements. Vous devriez maintenant pouvoir utiliser `pip` et installer des packages directement dans cet environnement via `conda` ou dans la console QGIS.
+   Redémarrez QGIS pour appliquer les changements. Vous pouvez maintenant utiliser `pip` et installer des packages dans cet environnement. Vérifiez l'installation avec :
+   - `import pooch` suivi de `print(pooch.__version__)`, qui doit afficher la version installée dans `qgis_env`.
+   - `import pip` suivi de `print(pip.__version__)`, qui doit correspondre à la version installée dans `qgis_env`.
+
 
 ### Ajouter une couche vectorielle
 
