@@ -2,3 +2,4 @@
 .comments
 .ipynb_checkpoints
 venv/
+tmp/
