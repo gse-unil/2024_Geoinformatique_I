@@ -37,7 +37,7 @@ Si un module Python doit être installé, cela peut se faire avec l'outil de lig
 !pip install pooch
 ```
 
-<div style="border: 1px solid #933; background-color: #fee; padding: 15px;">
+---
 
 **Attention**: il peut arriver que la commande `!pip install pooch` ne fonctionne pas, avec un message comme quoi la `pip` n'a pas pu être trouvée. Ceci vient du fait que QGIS ne sait pas dans quel dossier la commande `pip` avait été installée.
 
@@ -61,11 +61,11 @@ Si un module Python doit être installé, cela peut se faire avec l'outil de lig
 
 - Ensuite redémarrez QGIS pour appliquer les changements. Vous pouvez maintenant utiliser `pip` et installer le module `pooch` avec `!pip install pooch`. Vérifiez l'installation avec `import pooch`.
 
-<hr />
+---
 
 **Si vous rencontrez ce problème sous Windows,** veuillez prendre contact avec C. Kaiser.
 
-</div>
+---
 
 
 ### Ajouter une couche vectorielle
