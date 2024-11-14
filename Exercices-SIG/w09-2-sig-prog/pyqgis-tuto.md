@@ -39,6 +39,7 @@ Si un module Python doit être installé, cela peut se faire avec l'outil de lig
 
 ---
 
+<<<<<<< HEAD
 **Attention**: il peut arriver que la commande `!pip install pooch` ne fonctionne pas, avec un message comme quoi la `pip` n'a pas pu être trouvée. Ceci vient du fait que QGIS ne sait pas dans quel dossier la commande `pip` avait été installée. Si vous n'avez pas ce problème, veuillez cliquer sur [le lien suivant](#ajouter-une-couche-vectorielle) pour continuer le tutoriel.
 
 ---
@@ -103,6 +104,12 @@ Il peut arriver que la commande `!pip install pooch` ne fonctionne pas dans la c
 ---
 
 
+=======
+**Attention**: il peut arriver que la commande `!pip install pooch` ne fonctionne pas, avec un message comme quoi la `pip` n'a pas pu être trouvée. Dans un tel cas, assurez-vous d'abord d'avoir la dernière version QGIS (LTR ou non) installée (désinstallez des versions plus anciennes d'abord). Si vous avec un ordinateur Apple, veuillez consulter le document [«Configurer PyQGIS sur macOS»](./pyqgis-on-macos.md). Si vous n'avez pas d'ordinateur Apple, ou que le problème persiste, prenez contact avec l'équipe d'enseignement.
+
+---
+
+>>>>>>> 59f822b (Préciser procédure si pip pas trouvé)
 ### Ajouter une couche vectorielle
 
 L'objectif principal de la console Python est d'interagir avec QGIS. Toutes les actions disponibles dans l'interface graphique de QGIS peuvent également être effectuées via Python.
