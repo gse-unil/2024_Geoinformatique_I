@@ -45,7 +45,7 @@ Si un module Python doit être installé, cela peut se faire avec l'outil de lig
 
 2. Si vous avec un ordinateur Apple, veuillez consulter le document [«Configurer PyQGIS sur macOS»](./pyqgis-on-macos.md).
 
-3. Si vous n'avez pas d'ordinateur Apple, ou que le problème persiste, essayez la procédure décrite sous [«Résoudre le problème des commandes introuvables»](./pyqgis-tuto.md).
+3. Si vous n'avez pas d'ordinateur Apple, ou que le problème persiste, essayez la procédure décrite sous [«Résoudre le problème des commandes introuvables»](./pyqgis-fix-path-issue.md).
 
 ---
 
