@@ -19,6 +19,10 @@ La seule chose à laquelle il faut faire attention: il y a aussi un onglet «Geo
 
 Les différentes opérations de lecture et écriture de couches vectorielles dans QGIS sont illustrées dans les vidéos suivantes:
 
-- [QGIS: Lecture de données vectorielles](https://youtu.be/crAKLIPPCqQ)
-- [QGIS: Convertir des couches vectorielles en format Geopackage](https://youtu.be/xRDcsOJy6Fw)
-- [QGIS: Importer un fichier CSV](https://youtu.be/AsNhCy2ztUg)
+[QGIS: Lecture de données vectorielles](https://youtu.be/crAKLIPPCqQ)
+
+QGIS: Convertir des couches vectorielles en format Geopackage:
+- [vidéo pour Windows et Linux](https://youtu.be/xRDcsOJy6Fw)
+- [vidéo pour macOS](https://youtu.be/https://youtu.be/RNsoMtcVjUo)
+
+[QGIS: Importer un fichier CSV](https://youtu.be/AsNhCy2ztUg)
