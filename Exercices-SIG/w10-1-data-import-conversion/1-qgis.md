@@ -23,6 +23,6 @@ Les différentes opérations de lecture et écriture de couches vectorielles dan
 
 QGIS: Convertir des couches vectorielles en format Geopackage:
 - [vidéo pour Windows et Linux](https://youtu.be/xRDcsOJy6Fw)
-- [vidéo pour macOS](https://youtu.be/https://youtu.be/RNsoMtcVjUo)
+- [vidéo pour macOS](/https://youtu.be/RNsoMtcVjUo)
 
 [QGIS: Importer un fichier CSV](https://youtu.be/AsNhCy2ztUg)
