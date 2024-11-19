@@ -9,10 +9,10 @@ Démonstration des différentes opérations dans les vidéos suivantes:
     - [Sélection par localisation](https://youtu.be/at-z-36FUJw)
 
 - Outils de numérisatino et édition:
-    - [Édition des couches vectorielles - Numérisation simple](https://youtu.be/JBm_Iaaxe7A)
-    - [Édition des couches vectorielles - numérisation topologique et tracé](https://youtu.be/pXYcl46t_W4)
-    - [Édition des couches vectorielles - numérisation par coordonnées](https://youtu.be/dMRziGdQEF8)
-    - [Édition des couches vectorielles - numérisation avancée](https://youtu.be/1-ZYblQjubg)
+    - [Numérisation simple](https://youtu.be/JBm_Iaaxe7A)
+    - [Numérisation topologique et tracé](https://youtu.be/pXYcl46t_W4)
+    - [Numérisation par coordonnées](https://youtu.be/dMRziGdQEF8)
+    - [Numérisation avancée](https://youtu.be/1-ZYblQjubg)
 
 - Les joiontures:
     - [Jointure par attributs](https://youtu.be/_1xysTPC7Jc)
